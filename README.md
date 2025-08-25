@@ -97,11 +97,8 @@
     const normalSymbols = "アカサタナハマヤラワ0123456789".split("");
     const specialSymbols = ["TOMAZO", "Tomas Atanasov", "30221022", "Blackpool & the Fylde College"];
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-
-    let pulse = 0;
-    let direction = 1;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
 
     function draw() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
@@ -109,43 +106,38 @@
 
       ctx.font = fontSize + "px monospace";
 
-      pulse += direction * 0.05;
-      if (pulse >= 1 || pulse <= 0) direction *= -1;
-
       for (let i = 0; i < drops.length; i++) {
-        let text;
         let x = i * fontSize;
         let y = drops[i] * fontSize;
 
-        // Random chance to inject special red text
+        // Random chance to insert special string instead of a single character
         if (Math.random() < 0.0015) {
-          text = specialSymbols[Math.floor(Math.random() * specialSymbols.length)];
-          const r = Math.floor(100 + pulse * 155);
-          ctx.fillStyle = `rgb(${r},0,0)`;
+          const text = specialSymbols[Math.floor(Math.random() * specialSymbols.length)];
+          ctx.fillStyle = "rgb(180,0,0)";
           ctx.shadowBlur = 15;
-          ctx.shadowColor = `rgba(${r},0,0,0.9)`;
-          // Place randomly on screen, not fixed column
-          ctx.fillText(text, Math.random() * canvas.width, Math.random() * canvas.height);
+          ctx.shadowColor = "rgba(255,0,0,0.8)";
+          ctx.fillText(text, x, y);
         } else {
-          text = normalSymbols[Math.floor(Math.random() * normalSymbols.length)];
+          const text = normalSymbols[Math.floor(Math.random() * normalSymbols.length)];
           ctx.fillStyle = "rgb(0,180,0)";
           ctx.shadowBlur = 0;
           ctx.fillText(text, x, y);
         }
 
-        // reset drop
+        // reset drop to top randomly
         if (y > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i] += Math.random() * 0.5 + 0.5; // variable slower speed like in the movie
+        drops[i] += 1; // falling speed
       }
     }
 
-    setInterval(draw, 40); // ~25fps for movie feel
+    setInterval(draw, 40); // smooth movie-like frame rate
 
     window.addEventListener("resize", () => {
       canvas.height = window.innerHeight;
       canvas.width = window.innerWidth;
     });
   </script>
-</body
+</body>
+</html>
