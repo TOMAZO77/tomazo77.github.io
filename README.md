@@ -78,10 +78,10 @@
     </p>
   </section>
 
-  <!-- Contact -->
-  <footer class="glass text-center text-green-300">
+  <!-- Footer pinned at bottom -->
+  <footer class="text-green-300">
     <p>© 2025 Tomas Atanasov | 
-      <a href="mailto:tomas-atanasov@hotmail.com" class="underline red-glow">Contact Me</a>
+      <a href="mailto:tomas-atanasov@hotmail.com">Contact Me</a>
     </p>
   </footer>
 
