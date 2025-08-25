@@ -3,56 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tomas Atanasov</title>
+  <title>Tomas Atanasov | Cyber Specialist</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
-    body { margin: 0; padding: 0; }
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .glow {
+      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0;
+    }
   </style>
 </head>
-<body class="bg-black text-white font-sans">
-
-  <!-- Cool animated background -->
-  <div id="particles-js"></div>
+<body class="flex flex-col justify-center items-center h-screen text-center">
 
   <!-- Hero Section -->
-  <section class="flex flex-col justify-center items-center h-screen text-center">
-    <h1 class="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
-      Tomas Atanasov
-    </h1>
-    <p class="text-xl text-gray-300 max-w-xl">
-      Building next-gen experiences in software, games, and technology.
+  <section>
+    <h1 class="text-6xl font-bold mb-4 glow">TOMAZO</h1>
+    <p class="text-xl text-green-400 max-w-xl mx-auto glow">
+      Tomas Atanasov • Cyber Specialist • Software Engineer
     </p>
-    <a href="#about" class="mt-8 px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 hover:scale-105 transition transform shadow-lg">
-      Explore More ↓
+    <a href="#about" class="mt-8 inline-block px-6 py-3 rounded bg-green-700/30 border border-green-400 text-green-300 hover:bg-green-700/60 transition glow">
+      Access Profile ↓
     </a>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="p-12 text-center bg-gray-900/50 rounded-2xl mx-8 mb-12">
-    <h2 class="text-4xl font-semibold mb-4">About Me</h2>
-    <p class="text-lg text-gray-300 max-w-3xl mx-auto">
-      I am passionate about creating futuristic technology and immersive experiences. From software engineering to game development, my journey is about pushing the boundaries of what’s possible.
+  <section id="about" class="p-12 mt-20 bg-black/80 rounded-2xl border border-green-400 max-w-3xl mx-auto glow">
+    <h2 class="text-3xl mb-4">About Me</h2>
+    <p>
+      Passionate about building immersive experiences in software and game development. 
+      Blending creativity, cyber aesthetics, and next-gen technologies. 
+      Student of Blackpool & the Fylde College (ID: 30221022).
     </p>
   </section>
 
   <!-- Contact -->
-  <footer class="text-center py-6 text-gray-400">
-    <p>© 2025 Tomas Atanasov | <a href="mailto:xemenone@hotmail.com" class="underline">Contact Me</a></p>
+  <footer class="text-center py-6 text-green-500 glow">
+    <p>© 2025 Tomas Atanasov | <a href="mailto:xemenone@hotmail.com" class="underline">Contact</a></p>
   </footer>
 
+  <!-- Matrix Rain Background -->
+  <canvas id="matrix"></canvas>
   <script>
-    /* Particles.js config */
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80 },
-        size: { value: 3 },
-        move: { speed: 2 },
-        line_linked: { enable: true, color: "#888" },
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    // Pool of symbols
+    const symbols = [
+      "ア","カ","サ","タ","ナ","ハ","マ","ヤ","ラ","ワ",
+      "0","1","2","3","4","5","6","7","8","9",
+      "TOMAZO","Tomas Atanasov","30221022","Blackpool & the Fylde College"
+    ];
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = symbols[Math.floor(Math.random() * symbols.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
       }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
     });
   </script>
-
 </body>
 </html>
