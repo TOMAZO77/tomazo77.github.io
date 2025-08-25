@@ -1,1 +1,127 @@
-Hi, This is my Website! : )
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomas Atanasov | Cyber Specialist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Courier New', monospace;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .glow {
+      text-shadow: 0 0 8px #0f0, 0 0 16px #0f0, 0 0 32px #0f0;
+    }
+    .glass {
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen text-center space-y-12">
+
+  <!-- Hero Section -->
+  <section class="glass max-w-2xl w-full">
+    <h1 class="text-6xl font-bold mb-4 glow text-green-400">Tomas Atanasov</h1>
+    <p class="text-xl text-green-300 max-w-xl mx-auto glow">
+      Cyber Specialist • Software Engineer • Next-gen Developer
+    </p>
+    <a href="#about" class="mt-8 inline-block px-6 py-3 rounded bg-green-700/30 border border-green-400 text-green-200 hover:bg-green-700/60 transition glow">
+      Access Profile ↓
+    </a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="glass max-w-2xl w-full text-green-200">
+    <h2 class="text-3xl mb-4 glow">About Me</h2>
+    <p>
+      Passionate about building immersive experiences in software and game development. 
+      Blending creativity, cyber aesthetics, and next-gen technologies. <br>
+      Student of <span class="text-green-400 glow">Blackpool & the Fylde College</span> (ID: <span class="text-green-400 glow">30221022</span>).
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <footer class="glass max-w-2xl w-full text-green-300">
+    <p>© 2025 Tomas Atanasov | 
+      <a href="mailto:tomas-atanasov@hotmail.com" class="underline glow">Contact Me</a>
+    </p>
+  </footer>
+
+  <!-- Matrix Rain Background -->
+  <canvas id="matrix"></canvas>
+  <script>
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const normalSymbols = ["ア","カ","サ","タ","ナ","ハ","マ","ヤ","ラ","ワ","0","1","2","3","4","5","6","7","8","9"];
+    const specialSymbols = ["TOMAZO","Tomas Atanasov","30221022","Blackpool & the Fylde College"];
+    const symbols = [...normalSymbols, ...specialSymbols];
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    let pulse = 0;
+    let direction = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = fontSize + "px monospace";
+
+      // Update pulse (0 → 1 → 0)
+      pulse += direction * 0.05;
+      if (pulse >= 1 || pulse <= 0) direction *= -1;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = symbols[Math.floor(Math.random() * symbols.length)];
+
+        if (specialSymbols.includes(text)) {
+          // Create pulsing glow for special words
+          const r = Math.floor(100 + pulse * 155); // red 100-255
+          const g = Math.floor(200 - pulse * 150); // green 200-50
+          ctx.fillStyle = `rgb(${r}, ${g}, ${r})`;
+          ctx.shadowBlur = 20;
+          ctx.shadowColor = `rgba(${r}, ${g}, ${r}, 0.8)`;
+        } else {
+          ctx.fillStyle = "rgba(0,255,0,0.6)";
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
+  </script>
+</body>
+</html>
