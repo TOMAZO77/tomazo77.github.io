@@ -20,36 +20,43 @@
       z-index: -1;
     }
     .glow {
-      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0;
+      text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 40px #0f0;
+    }
+    .panel {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #0f0;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
     }
   </style>
 </head>
 <body class="flex flex-col justify-center items-center h-screen text-center">
 
   <!-- Hero Section -->
-  <section>
+  <section class="panel max-w-2xl">
     <h1 class="text-6xl font-bold mb-4 glow">TOMAZO</h1>
-    <p class="text-xl text-green-400 max-w-xl mx-auto glow">
+    <p class="text-xl text-green-300 max-w-xl mx-auto glow">
       Tomas Atanasov • Cyber Specialist • Software Engineer
     </p>
-    <a href="#about" class="mt-8 inline-block px-6 py-3 rounded bg-green-700/30 border border-green-400 text-green-300 hover:bg-green-700/60 transition glow">
+    <a href="#about" class="mt-8 inline-block px-6 py-3 rounded bg-green-700/40 border border-green-400 text-green-200 hover:bg-green-700/70 transition glow">
       Access Profile ↓
     </a>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="p-12 mt-20 bg-black/80 rounded-2xl border border-green-400 max-w-3xl mx-auto glow">
-    <h2 class="text-3xl mb-4">About Me</h2>
+  <section id="about" class="panel mt-20 max-w-3xl mx-auto text-green-200">
+    <h2 class="text-3xl mb-4 glow">About Me</h2>
     <p>
       Passionate about building immersive experiences in software and game development. 
-      Blending creativity, cyber aesthetics, and next-gen technologies. 
-      Student of Blackpool & the Fylde College (ID: 30221022).
+      Blending creativity, cyber aesthetics, and next-gen technologies. <br>
+      Student of <span class="text-green-400 glow">Blackpool & the Fylde College</span> (ID: <span class="text-green-400 glow">30221022</span>).
     </p>
   </section>
 
   <!-- Contact -->
-  <footer class="text-center py-6 text-green-500 glow">
-    <p>© 2025 Tomas Atanasov | <a href="mailto:xemenone@hotmail.com" class="underline">Contact</a></p>
+  <footer class="panel text-center py-4 mt-12 text-green-300">
+    <p>© 2025 Tomas Atanasov | <a href="mailto:xemenone@hotmail.com" class="underline glow">Contact</a></p>
   </footer>
 
   <!-- Matrix Rain Background -->
@@ -76,7 +83,7 @@
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#0F0";
+      ctx.fillStyle = "rgba(0,255,0,0.7)"; // slightly dimmed so text stands out
       ctx.font = fontSize + "px monospace";
 
       for (let i = 0; i < drops.length; i++) {
